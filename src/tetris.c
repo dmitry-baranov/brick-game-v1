@@ -1,5 +1,3 @@
-#include <ncurses.h>
-#include <unistd.h>
 #include "tetris.h"
 
 int main() {
@@ -7,19 +5,24 @@ int main() {
     return 0;
 }
 
-void tetris_game(){
+int tetris_game(){
     GameState game_state;
-
-    init_game_logic();
-    init_game_gui();
-
+    init_game();
     while(game_state.state == STATE_EXIT){
-        process_input(&game_state);
-        update_state(&game_state);
+        Input input = get_input();
+        update_state(&game_state, input);
         render(&game_state);
         usleep(DELAY);
     }
-    game_finish_gui();
+    finish_game();
+}
 
-    //free everything
+void init_game(){
+    init_gui();
+    init_logic();
+}
+
+void finish_game() {
+    finish_logic();
+    finish_gui();
 }
