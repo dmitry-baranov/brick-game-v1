@@ -9,3 +9,6 @@ void finish_gui();
 Input get_input();
 void render(GameState* game_state);
 void initialize_ncurses();
+
+
+
